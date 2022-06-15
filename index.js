@@ -15,10 +15,26 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+function Person(strName,intAge) {
+    this.name = strName;
+    this.age = intAge;
+    this.stomach = [];
 }
 
+Person.prototype.eat = function(strFood){
+  if (this.stomach.length <= 10){
+    this.stomach.push(strFood);
+  }
+  return;
+}
+
+Person.prototype.toString = function (){
+      return `${this.name}, ${this.age}`;
+    };
+
+Person.prototype.poop = function(){
+  this.stomach = [];
+};
 
 /*
   TASK 2
@@ -36,10 +52,20 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, mpg) {
+  this.model = model;
+  this.milesPerGallon = mpg;
+  this.tank = 0; // gallons
+  this.odometer = 0;
 }
 
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons;
+}
+
+Car.prototype.drive = function(distance){
+  this.odometer = this.odometer + distance;
+}
 
 /*
   TASK 3
@@ -49,10 +75,18 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
-
+function Baby(name,age,toy) {
+  Person.call(this,name,age);
+  this.favoriteToy = toy;
 }
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
+}
+
+let baby1 = new Baby("Rick", "5", "Truck");
 
 /* 
   TASK 4
